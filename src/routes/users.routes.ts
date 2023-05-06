@@ -2,7 +2,6 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod"
 import { knex } from "../datasource";
 import { v4 as uuidv4 } from "uuid"
-import { json } from "stream/consumers";
 
 
 
@@ -79,6 +78,8 @@ export async function usersRoutes(server:FastifyInstance){
         const user = await knex("users").select().where("id", user_id)
 
         await knex("users").delete().where("id", user_id)
+        await knex("meals").delete().where("user_id", user_id)
+        await knex("metrics").delete().where("user_id", user_id)
 
         return reply.status(204).send(user)
     })

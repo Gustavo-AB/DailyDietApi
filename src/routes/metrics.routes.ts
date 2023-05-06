@@ -43,4 +43,13 @@ export async function metricsRoutes(server:FastifyInstance){
         return metrics
         
     })
+
+    server.delete("/",  async (request, reply)=>{
+
+        const { user_id, metrics_id } = request.headers
+
+        const deletedMetrics = await knex("metrics").delete().where("metrics_id", metrics_id).andWhere("user_id", user_id)
+
+        return deletedMetrics
+    })
 }
