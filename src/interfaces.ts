@@ -8,3 +8,8 @@ export interface Meals {
     meal_datetime: Date
     included: boolean
 }
+
+export interface IUserRequest {
+    name:string
+    email:string
+}

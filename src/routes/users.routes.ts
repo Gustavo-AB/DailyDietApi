@@ -1,39 +1,14 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod"
 import { knex } from "../datasource";
 import { v4 as uuidv4 } from "uuid"
+import { createUserController } from "../controllers/User/createUserController"
 
 
 
 export async function usersRoutes(server:FastifyInstance){
 
-    server.post("/", async (request, reply)=>{
-        const userRequest = z.object({
-            name: z.string(),
-            email: z.string()
-        })
-
-        const { name, email } = userRequest.parse(request.body)     
-        const idGenerator = uuidv4() 
-
-        await knex("users").insert({
-            id:uuidv4(),
-            name,
-            email,
-            session_id:uuidv4(),   
-        })
-
-        await knex('metrics').insert({
-            metrics_id:uuidv4(),
-            user_id:idGenerator,
-            total_diet_meals:0,
-            total_meals:0,
-            total_of_diet_meals:0,
-            best_sequence:0
-        })
-
-        return reply.status(201).send()
-    })
+    server.post("/",   createUserController.createUser)
 
     server.get("/", async (request, reply)=>{
 

@@ -7,7 +7,7 @@ import { validator } from "../validators/validateData";
 
 
 export async function createMeals(server:FastifyInstance){
-
+    
     server.addHook("preHandler",checkHeader)
 
     server.post("/", async (request, reply)=>{
