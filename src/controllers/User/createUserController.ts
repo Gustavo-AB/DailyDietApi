@@ -1,7 +1,5 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
-import { knex } from "../../datasource";
 import { z } from "zod";
-import { v4 as uuidv4 } from "uuid"
 import { dailyDietServer } from "../../app";
 import { UserRepository } from "../../repositories/createUserRepositories";
 
@@ -26,8 +24,8 @@ export class CreateUserController {
             }
 
             try{
-                UserRepository.createUserRepository(user)
-                return reply.status(201).send({ success:"Success"})
+                const userResponse = await UserRepository.createUserRepository(user)
+                return reply.status(201).send(userResponse)
             } catch {
                 return reply.status(500).send()
             }
@@ -39,36 +37,3 @@ export class CreateUserController {
 }
 
 export const createUserController = new CreateUserController(dailyDietServer)
-
-
-
-// export async function createUser(server:FastifyInstance, request:FastifyRequest, reply:FastifyReply){
-//     // const userRequest = z.object({
-//     //     name: z.string(),
-//     //     email: z.string()
-//     // })
-
-//     // const { name, email } = userRequest.parse(request.body)     
-//     // const idGenerator = uuidv4() 
-
-//     await knex("users").insert({
-//         id:uuidv4(),
-//         name,
-//         email,
-//         session_id:uuidv4(),   
-//     })
-
-//     await knex('metrics').insert({
-//         metrics_id:uuidv4(),
-//         user_id:idGenerator,
-//         total_diet_meals:0,
-//         total_meals:0,
-//         total_of_diet_meals:0,
-//         best_sequence:0
-//     })
-
-//     console.log('Funfou')
-
-//     return reply.status(201).send()
-    
-// }

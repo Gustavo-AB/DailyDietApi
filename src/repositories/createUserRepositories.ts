@@ -7,12 +7,13 @@ export class UserRepository {
 
     static async createUserRepository(user:IUserRequest){
         const { name, email } = user
-        await knex("users").insert({
+        const userData = {
             id:uuidv4(),
             name,
             email,
-            session_id:uuidv4(),   
-        })
+            session_id:uuidv4(),  
+        }
+        const userResponse = await knex("users").returning("*").insert(userData)
 
         const idGenerator = uuidv4() 
         
@@ -24,5 +25,8 @@ export class UserRepository {
             total_of_diet_meals:0,
             best_sequence:0
         })
+
+        return userResponse
     }
+
 }
