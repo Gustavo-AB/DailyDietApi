@@ -8,22 +8,22 @@ class GetUsersController {
 
     constructor(server:FastifyInstance){}
 
-    async getUser(request:FastifyRequest, reply:FastifyReply){
-        const headerRequestSchema = z.object({
-            session_id: z.string()
+    async getUserById(request:FastifyRequest, reply:FastifyReply){
+        const paramsRequestSchema = z.object({
+            user_id: z.string()
         })
 
-        const headerRequest = headerRequestSchema.safeParse(request.headers)
+        const headerRequest = paramsRequestSchema.safeParse(request.params)
 
         if(headerRequest.success){
             const user = headerRequest.data
 
-            if(user.session_id === ''){
+            if(user.user_id === ''){
                 return reply.status(400).send({err:"Invalid arguments!"})
             }
 
             try{
-                const userResponse = await GetUsersRepository.getUser(Number(user.session_id))
+                const userResponse = await GetUsersRepository.getUserById(user.user_id)
                 return userResponse
             } catch {
                 return reply.status(500).send()
@@ -31,6 +31,15 @@ class GetUsersController {
 
         } else {
             return reply.send(headerRequest.error)
+        }
+    }
+
+    async getUsers(request:FastifyRequest, reply:FastifyReply){
+        try{
+            const userResponse = await GetUsersRepository.getUsers()
+            return userResponse
+        } catch {
+            return reply.status(500).send()
         }
     }
 }

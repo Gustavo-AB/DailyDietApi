@@ -2,9 +2,11 @@ import { knex } from "../datasource"
 
 export class GetUsersRepository {
 
-    static async getUser(session_id:number){
-        const users = await knex("users").select().where("session_id", session_id)
+    static async getUserById(user_id:string){
+        return await knex("users").select().where("id", user_id)
+    }
 
-        return users
+    static async getUsers(){
+        return await knex("users").select("*")
     }
 }

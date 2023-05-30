@@ -10,6 +10,6 @@ export interface Meals {
 }
 
 export interface IUserRequest {
-    name:string
-    email:string
+    name?:string
+    email?:string
 }
