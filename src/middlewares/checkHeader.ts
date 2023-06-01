@@ -1,5 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { z } from "zod"
+import { GetUsersRepository } from "../repositories/User/getUsersRepository"
 
 
 export async function checkHeader(request:FastifyRequest, reply:FastifyReply){
@@ -14,5 +15,13 @@ export async function checkHeader(request:FastifyRequest, reply:FastifyReply){
         return reply.status(400).send({
             error:"Bad request"
         })
-    } 
+    } else {
+
+        const user = await GetUsersRepository.getUserById(user_id)
+
+        if(user.length === 0){
+            
+            return reply.status(400).send({ err:"User not found!"})
+        }
+    }
 }

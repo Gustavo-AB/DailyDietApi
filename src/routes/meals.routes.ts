@@ -4,33 +4,14 @@ import { knex } from "../datasource";
 import { v4 as uuidv4 } from "uuid"
 import { checkHeader } from "../middlewares/checkHeader";
 import { validator } from "../validators/validateData";
+import { createMealController } from "../controllers/Meal/createMealController";
 
 
 export async function createMeals(server:FastifyInstance){
     
     server.addHook("preHandler",checkHeader)
 
-    server.post("/", async (request, reply)=>{
-        const requestObject = z.object({
-            meal_name: z.string(),
-            meal_description: z.string(),
-            included: z.boolean()
-        })
-
-        const { user_id } =  validator.validateData(request.headers, "string")
-
-        const { meal_name, meal_description, included } = requestObject.parse(request.body)
-        
-        await knex("meals").insert({
-            id_meal:uuidv4(),
-            user_id,
-            meal_name,
-            meal_description,
-            included
-        })
-
-        return reply.status(201).send()
-    })
+    server.post("/", createMealController.createMeal)
 
     server.get("/", async (request, reply)=>{
         

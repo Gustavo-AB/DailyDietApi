@@ -1,12 +1,9 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
 import { z } from "zod";
-import { dailyDietServer } from "../../app";
-import { UserRepository } from "../../repositories/createUserRepositories";
+import { UserRepository } from "../../repositories/User/createUserRepositories";
 
 
 export class CreateUserController { 
-
-    constructor(server:FastifyInstance){ }
 
     async createUser(request:FastifyRequest, reply:FastifyReply){
         const userRequestSchema = z.object({
@@ -36,4 +33,4 @@ export class CreateUserController {
     }
 }
 
-export const createUserController = new CreateUserController(dailyDietServer)
+export const createUserController = new CreateUserController()

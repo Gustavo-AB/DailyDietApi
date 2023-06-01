@@ -1,4 +1,4 @@
-import { knex } from "../datasource"
+import { knex } from "../../datasource"
 
 export class GetUsersRepository {
 

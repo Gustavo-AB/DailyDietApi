@@ -1,13 +1,9 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
 import { z } from "zod";
-import { dailyDietServer } from "../../app";
-import { UserRepository } from "../../repositories/createUserRepositories";
-import { DeleteUserRepository } from "../../repositories/deleteUserRepository";
+import { DeleteUserRepository } from "../../repositories/User/deleteUserRepository";
 
 
 class DeleteUserController {
-
-    constructor(server:FastifyInstance){}
 
     async deleteUser(request:FastifyRequest, reply:FastifyReply){
         const paramsRequestSchema = z.object({
@@ -36,4 +32,4 @@ class DeleteUserController {
 
 }
 
-export const deleteUserController = new DeleteUserController(dailyDietServer)
+export const deleteUserController = new DeleteUserController()

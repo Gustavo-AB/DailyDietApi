@@ -1,5 +1,5 @@
-import { knex } from "../datasource";
-import { IUserRequest } from "../interfaces";
+import { knex } from "../../datasource";
+import { IUserRequest } from "../../interfaces";
 import { v4 as uuidv4 } from "uuid"
 
 

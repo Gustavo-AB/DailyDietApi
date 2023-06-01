@@ -1,5 +1,5 @@
-import { knex } from "../datasource"
-import { IUserRequest } from "../interfaces"
+import { knex } from "../../datasource"
+import { IUserRequest } from "../../interfaces"
 
 
 export class UpdateUserRepository {

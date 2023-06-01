@@ -1,13 +1,9 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
 import { z } from "zod";
-import { dailyDietServer } from "../../app";
-import { GetUsersRepository } from "../../repositories/getUsersRepository";
-import { UpdateUserRepository } from "../../repositories/updateUserRepository";
+import { UpdateUserRepository } from "../../repositories/User/updateUserRepository";
 
 
 export class UpdateUserController {
-
-    constructor(server:FastifyInstance){}
 
     async updateUser(request:FastifyRequest, reply:FastifyReply){
 
@@ -41,4 +37,4 @@ export class UpdateUserController {
 
 }
 
-export const updateUserController = new UpdateUserController(dailyDietServer)
+export const updateUserController = new UpdateUserController()

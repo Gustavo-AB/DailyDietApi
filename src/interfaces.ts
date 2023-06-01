@@ -13,3 +13,9 @@ export interface IUserRequest {
     name?:string
     email?:string
 }
+
+export interface IMealRequest {
+    meal_name:string
+    meal_description:string
+    included:boolean
+}
