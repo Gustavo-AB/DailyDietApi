@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
 import { z } from "zod";
-import { UserRepository } from "../../repositories/User/createUserRepositories";
+import { UserRepository } from "../../repositories/User/createUserRepository";
 
 
 export class CreateUserController { 

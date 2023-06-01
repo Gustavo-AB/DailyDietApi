@@ -5,40 +5,20 @@ import { v4 as uuidv4 } from "uuid"
 import { checkHeader } from "../middlewares/checkHeader";
 import { validator } from "../validators/validateData";
 import { createMealController } from "../controllers/Meal/createMealController";
+import { getMealsController } from "../controllers/Meal/getMealsController";
 
 
 export async function createMeals(server:FastifyInstance){
     
-    server.addHook("preHandler",checkHeader)
+    server.post("/",  createMealController.createMeal)
 
-    server.post("/", createMealController.createMeal)
+    server.get("/user_meal", {preHandler:checkHeader}, getMealsController.getMealByUserId)
 
-    server.get("/", async (request, reply)=>{
-        
-        const { user_id } = request.headers
+    server.get("/meal", getMealsController.getMealById)
 
-        const meals = await knex("meals").select().where("user_id", user_id)
+    server.get("/", getMealsController.getMeals)
 
-        return meals
-    })
-
-    server.get("/meal", async (request, reply)=>{
-
-        const { user_id } = request.headers
-        const readerRequest = z.object({
-            id_meal: z.string()
-        })
-
-        const { id_meal } = readerRequest.parse(request.headers)
-        
-        const meal = await knex("meals").select()
-            .where("id_meal", id_meal)
-            .andWhere("user_id", user_id)
-
-        return meal
-    })
-
-    server.put("/meal", async (request, reply) => {
+    server.put("/meal", {preHandler:checkHeader}, async (request, reply) => {
 
         const { user_id, meal_id } = request.headers
         const data:any = request.body

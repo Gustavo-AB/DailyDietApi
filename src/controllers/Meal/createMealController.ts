@@ -1,12 +1,9 @@
-import { FastifyRequest, FastifyReply, FastifyInstance } from "fastify"
+import { FastifyRequest, FastifyReply } from "fastify"
 import { z } from "zod";
-import { dailyDietServer } from "../../app";
-import { CreateMealRepository } from "../../repositories/Meal/createMealRepositories";
+import { CreateMealRepository } from "../../repositories/Meal/createMealRepository";
 
 
 class CreateMealController {
-
-    constructor(server:FastifyInstance){}
 
     async createMeal(request:FastifyRequest, reply:FastifyReply){
 
@@ -53,9 +50,7 @@ class CreateMealController {
 
             return mealRequest.error;
         }
-
-        return reply.status(201).send()
     }
 }
 
-export const createMealController = new CreateMealController(dailyDietServer)
+export const createMealController = new CreateMealController()

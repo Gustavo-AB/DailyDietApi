@@ -33,8 +33,6 @@ export class UpdateUserController {
             return reply.status(400).send(paramsRequest.error)
         }
     }
-
-
 }
 
 export const updateUserController = new UpdateUserController()

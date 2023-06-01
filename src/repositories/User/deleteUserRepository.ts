@@ -9,7 +9,5 @@ export class DeleteUserRepository{
         await knex("users").delete().where("id", user_id)
         await knex("meals").delete().where("user_id", user_id)
         await knex("metrics").delete().where("user_id", user_id)
-
-
     }
 }
