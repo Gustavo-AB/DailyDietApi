@@ -15,12 +15,15 @@ dailyDietServer.register(cors, {
 })
 
 dailyDietServer.register(cookie)
+
 dailyDietServer.register(metricsRoutes, {
     prefix:"metrics"
 })
+
 dailyDietServer.register(createMeals, {
     prefix:"/meals"
 })
+
 dailyDietServer.register(usersRoutes, {
     prefix:"/users"
 })

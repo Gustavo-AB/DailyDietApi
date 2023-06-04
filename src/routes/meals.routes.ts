@@ -6,11 +6,12 @@ import { checkHeader } from "../middlewares/checkHeader";
 import { validator } from "../validators/validateData";
 import { createMealController } from "../controllers/Meal/createMealController";
 import { getMealsController } from "../controllers/Meal/getMealsController";
+import { updateMealController } from "../controllers/Meal/updateMealController";
 
 
 export async function createMeals(server:FastifyInstance){
     
-    server.post("/",  createMealController.createMeal)
+    server.post("/",  {preHandler:checkHeader}, createMealController.createMeal)
 
     server.get("/user_meal", {preHandler:checkHeader}, getMealsController.getMealByUserId)
 
@@ -18,23 +19,7 @@ export async function createMeals(server:FastifyInstance){
 
     server.get("/", getMealsController.getMeals)
 
-    server.put("/meal", {preHandler:checkHeader}, async (request, reply) => {
-
-        const { user_id, meal_id } = request.headers
-        const data:any = request.body
-
-        const meal = await knex("meals").update({
-            meal_name:data.meal_name,
-            meal_description:data.meal_description,
-            meal_datetime:data.meal_datetime,
-            included:data.included
-
-        })
-        .where("user_id", user_id)
-        .andWhere("id_meal", meal_id)
-
-        return { meal }
-    })
+    server.put("/meal", {preHandler:checkHeader}, updateMealController.updateMeal)
 
     server.delete("/meal", async (request, reply)=>{
 
