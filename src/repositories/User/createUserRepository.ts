@@ -7,15 +7,16 @@ export class UserRepository {
 
     static async createUserRepository(user:IUserRequest){
         const { name, email } = user
+        const idGenerator = uuidv4() 
         const userData = {
-            id:uuidv4(),
+            id:idGenerator,
             name,
             email,
             session_id:uuidv4(),  
         }
         const userResponse = await knex("users").returning("*").insert(userData)
 
-        const idGenerator = uuidv4() 
+        
         
         await knex('metrics').insert({
             metrics_id:uuidv4(),

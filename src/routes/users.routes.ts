@@ -1,7 +1,4 @@
-import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
-import { z } from "zod"
-import { knex } from "../datasource";
-import { v4 as uuidv4 } from "uuid"
+import { FastifyInstance } from "fastify";
 import { createUserController } from "../controllers/User/createUserController"
 import { getUsersController } from "../controllers/User/getUsersController";
 import { updateUserController } from "../controllers/User/updateUserController";

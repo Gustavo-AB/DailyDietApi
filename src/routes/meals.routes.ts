@@ -1,9 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { z } from "zod"
-import { knex } from "../datasource";
-import { v4 as uuidv4 } from "uuid"
 import { checkHeader } from "../middlewares/checkHeader";
-import { validator } from "../validators/validateData";
 import { createMealController } from "../controllers/Meal/createMealController";
 import { getMealsController } from "../controllers/Meal/getMealsController";
 import { updateMealController } from "../controllers/Meal/updateMealController";

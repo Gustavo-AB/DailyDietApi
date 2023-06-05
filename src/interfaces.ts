@@ -19,3 +19,10 @@ export interface IMealRequest {
     meal_description?:string
     included?:boolean
 }
+
+export interface IMetricsUpdate{
+    totalMeals:any,
+    totalDietMeals:any,
+    totalOfDietMeals:any
+
+}
