@@ -7,6 +7,7 @@ import { validator } from "../validators/validateData";
 import { createMealController } from "../controllers/Meal/createMealController";
 import { getMealsController } from "../controllers/Meal/getMealsController";
 import { updateMealController } from "../controllers/Meal/updateMealController";
+import { deleteMealController } from "../controllers/Meal/deleteMealController";
 
 
 export async function createMeals(server:FastifyInstance){
@@ -19,15 +20,7 @@ export async function createMeals(server:FastifyInstance){
 
     server.get("/", getMealsController.getMeals)
 
-    server.put("/meal", {preHandler:checkHeader}, updateMealController.updateMeal)
+    server.put("/meal",  updateMealController.updateMeal)
 
-    server.delete("/meal", async (request, reply)=>{
-
-        const { user_id, meal_id } = request.headers
-
-        const deletedUser = await knex("meals").delete().where("id_meal", meal_id).andWhere("user_id", user_id)
-        await knex("metrics").delete().where("user_id", user_id)
-
-        return deletedUser
-    })
+    server.delete("/meal", {preHandler:checkHeader}, deleteMealController.deleteMeal)
 }

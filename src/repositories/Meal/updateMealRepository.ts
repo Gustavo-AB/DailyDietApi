@@ -18,5 +18,3 @@ export class UpdateMealrepository {
         .andWhere("id_meal", meal_id)
     }
 }
-
-
